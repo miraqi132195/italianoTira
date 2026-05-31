@@ -5,19 +5,33 @@ import { useLanguage } from "../context/LanguageContext";
 export default function BottomActionBar() {
   const { t } = useLanguage();
   const location = useLocation();
+  const isMenu =
+    location.pathname === "/menu" || location.pathname.startsWith("/menu/");
 
   const items = [
-    {
-      key: "menu",
-      label: t.bottomBar.menu,
-      href: "/menu",
-      isRoute: true,
-      icon: (
-        <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-      ),
-    },
+    isMenu
+      ? {
+          key: "back",
+          label: t.nav.back,
+          href: "/",
+          isRoute: true,
+          icon: (
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          ),
+        }
+      : {
+          key: "menu",
+          label: t.bottomBar.menu,
+          href: "/menu",
+          isRoute: true,
+          icon: (
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          ),
+        },
     {
       key: "navigate",
       label: t.bottomBar.navigate,
@@ -48,7 +62,11 @@ export default function BottomActionBar() {
       <div className="flag-accent h-0.5" />
       <ul className="flex">
         {items.map((item) => {
-          const active = item.isRoute && location.pathname === item.href;
+          const active =
+            item.isRoute &&
+            (item.key === "back"
+              ? isMenu
+              : location.pathname === item.href);
           const className = `flex flex-1 flex-col items-center gap-1 py-3 text-xs transition-colors ${
             active ? "text-italiano-gold" : "text-italiano-cream/70"
           }`;

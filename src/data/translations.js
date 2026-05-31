@@ -3,6 +3,7 @@ export const translations = {
     langLabel: "עברית",
     switchTo: "العربية",
     nav: {
+      back: "חזרה",
       home: "בית",
       menu: "תפריט",
       about: "אודות",
@@ -18,6 +19,7 @@ export const translations = {
     },
     about: {
       title: "אודותינו",
+      imageAlt: "אווירה במסעדה איטליאנו",
       text: "מסעדה איטלקית בטירה עם אווירה חמה, מנות מוקפדות, פסטות, פיצות וסטייקים איכותיים.",
     },
     gallery: {
@@ -64,6 +66,7 @@ export const translations = {
     langLabel: "العربية",
     switchTo: "עברית",
     nav: {
+      back: "رجوع",
       home: "الرئيسية",
       menu: "القائمة",
       about: "من نحن",
@@ -79,6 +82,7 @@ export const translations = {
     },
     about: {
       title: "من نحن",
+      imageAlt: "أجواء مطعم إيتاليانو",
       text: "مطعم إيطالي في الطيرة بأجواء دافئة، أطباق مميزة، باستا، بيتزا وستيك بجودة عالية.",
     },
     gallery: {

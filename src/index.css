@@ -63,3 +63,163 @@ body.lang-ar {
   background: var(--color-italiano-gold);
   border-radius: 3px;
 }
+
+/* ——— Motion ——— */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-ken-burns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes nav-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.motion-hidden {
+  opacity: 0;
+}
+
+.motion-fade-up {
+  animation: fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.motion-fade-in {
+  animation: fade-in 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.motion-fade-down {
+  animation: fade-down 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.motion-scale-in {
+  animation: scale-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.motion-slide-right {
+  animation: slide-right 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-animate {
+  animation: fade-up 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-animate-delay-1 {
+  animation-delay: 0.08s;
+}
+
+.hero-animate-delay-2 {
+  animation-delay: 0.18s;
+}
+
+.hero-animate-delay-3 {
+  animation-delay: 0.28s;
+}
+
+.hero-animate-delay-4 {
+  animation-delay: 0.38s;
+}
+
+.hero-animate-delay-5 {
+  animation-delay: 0.5s;
+}
+
+.hero-bg-animate {
+  animation: hero-ken-burns 18s ease-out forwards;
+}
+
+.nav-enter {
+  animation: nav-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.page-enter {
+  animation: page-enter 0.45s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-hidden,
+  .motion-fade-up,
+  .motion-fade-in,
+  .motion-fade-down,
+  .motion-scale-in,
+  .motion-slide-right,
+  .hero-animate,
+  .hero-bg-animate,
+  .nav-enter,
+  .page-enter {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

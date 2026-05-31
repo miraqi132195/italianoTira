@@ -18,7 +18,7 @@ export const menuItems = [
       ar: "بيض، بيكورينو، بانشيتا مدخنة وفلفل أسود",
     },
     price: 68,
-    image: "https://images.unsplash.com/photo-1612874742137-6529bc9b0e0f?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600&q=80",
     recommended: true,
   },
   {
@@ -54,7 +54,7 @@ export const menuItems = [
       ar: "صلصة طماطم، موزاريلا طازجة وريحان",
     },
     price: 52,
-    image: "https://images.unsplash.com/photo-1574071318508-1c0b00235c82?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80",
     recommended: true,
   },
   {
@@ -102,7 +102,7 @@ export const menuItems = [
       ar: "خبز إيطالي محمص، طماطم طازجة وزيت زيتون",
     },
     price: 38,
-    image: "https://images.unsplash.com/photo-1572695157366-5e585abddbe3?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=600&q=80",
     recommended: false,
   },
   {
@@ -114,7 +114,7 @@ export const menuItems = [
       ar: "حلقات كاليماري مقرمشة مع صلصة ليمون وثوم",
     },
     price: 48,
-    image: "https://images.unsplash.com/photo-1599487488170-5e6b6c0e0e0e?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80",
     recommended: true,
   },
   {
@@ -126,7 +126,7 @@ export const menuItems = [
       ar: "خس روماني، كرتون، بارميزان وصلصة سيزر",
     },
     price: 46,
-    image: "https://images.unsplash.com/photo-1550304943-4f24f54ddde1?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80",
     recommended: false,
   },
   {
@@ -186,7 +186,7 @@ export const menuItems = [
       ar: "مشروب ليمون إيطالي تقليدي",
     },
     price: 28,
-    image: "https://images.unsplash.com/photo-1569529465841-dfecdabbb3b2?w=600&q=80",
+    image: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=80",
     recommended: false,
   },
 ];

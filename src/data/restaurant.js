@@ -19,6 +19,8 @@ export const restaurant = {
   logo: "/logo.svg",
   heroImage:
     "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80",
+  aboutImage:
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&q=80",
   openingHours: [
     { day: { he: "ראשון", ar: "الأحد" }, hours: { he: "12:00 – 23:00", ar: "12:00 – 23:00" } },
     { day: { he: "שני", ar: "الإثنين" }, hours: { he: "12:00 – 23:00", ar: "12:00 – 23:00" } },
@@ -32,10 +34,9 @@ export const restaurant = {
     "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80",
     "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80",
     "https://images.unsplash.com/photo-1546549032-9571cd6b27df?w=800&q=80",
-    "https://images.unsplash.com/photo-1574071318508-1c0b00235c82?w=800&q=80",
     "https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=800&q=80",
+    "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80",
     "https://images.unsplash.com/photo-1600891964092-4316c288032e?w=800&q=80",
     "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&q=80",
-    "https://images.unsplash.com/photo-1558030006-450675393462?w=800&q=80",
   ],
 };

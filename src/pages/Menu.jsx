@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react";
-import { Link } from "react-router-dom";
 import { categories, menuItems } from "../data/menu";
 import { useLanguage } from "../context/LanguageContext";
 import Navbar from "../components/Navbar";
@@ -8,7 +7,7 @@ import BottomActionBar from "../components/BottomActionBar";
 import MenuCategoryTabs from "../components/MenuCategoryTabs";
 import MenuItemCard from "../components/MenuItemCard";
 import SectionHeading from "../components/SectionHeading";
-import Logo from "../components/Logo";
+import AnimateIn from "../components/AnimateIn";
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(
@@ -83,17 +82,16 @@ export default function Menu() {
 
   return (
     <>
-      <Navbar />
+      <Navbar showBack />
       <main className="pb-24 pt-20 md:pb-8 md:pt-24">
         <div className="mx-auto max-w-6xl px-4">
-          <div className="mb-4 flex flex-col items-center gap-2 md:mb-8 md:gap-4">
-            <Link to="/">
-              <Logo size="lg" className="scale-90 md:scale-100" />
-            </Link>
-            <SectionHeading title={t.menu.title} subtitle={t.menu.subtitle} />
-          </div>
+          <SectionHeading
+            title={t.menu.title}
+            subtitle={t.menu.subtitle}
+            className="pt-4 md:pt-6"
+          />
 
-          <div className="mb-4 md:mb-6">
+          <AnimateIn animation="fade-up" delay={120} className="mb-4 md:mb-6">
             <input
               type="search"
               value={search}
@@ -101,7 +99,7 @@ export default function Menu() {
               placeholder={t.menu.search}
               className="w-full rounded-full border border-italiano-cream/20 bg-italiano-green-card px-5 py-2.5 text-italiano-cream placeholder:text-italiano-cream/40 focus:border-italiano-gold focus:outline-none md:px-6 md:py-3"
             />
-          </div>
+          </AnimateIn>
         </div>
 
         {!search && (
@@ -112,7 +110,9 @@ export default function Menu() {
           {search ? (
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {filtered.length > 0 ? (
-                filtered.map((item) => <MenuItemCard key={item.id} item={item} />)
+                filtered.map((item, i) => (
+                  <MenuItemCard key={item.id} item={item} delay={i * 60} />
+                ))
               ) : (
                 <p className="col-span-full py-12 text-center text-italiano-cream/60">
                   {t.menu.noResults}
@@ -139,8 +139,8 @@ export default function Menu() {
                       {cat.name[lang]}
                     </h2>
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-                      {items.map((item) => (
-                        <MenuItemCard key={item.id} item={item} />
+                      {items.map((item, i) => (
+                        <MenuItemCard key={item.id} item={item} delay={i * 60} />
                       ))}
                     </div>
                   </section>
