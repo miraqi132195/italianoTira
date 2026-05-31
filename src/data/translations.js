@@ -1,0 +1,124 @@
+export const translations = {
+  he: {
+    langLabel: "עברית",
+    switchTo: "العربية",
+    nav: {
+      home: "בית",
+      menu: "תפריט",
+      about: "אודות",
+      gallery: "גלריה",
+      contact: "צור קשר",
+    },
+    hero: {
+      headline: "כל ביס מספר סיפור",
+      subtitle: "חוויה איטלקית אמיתית בלב טירה — טעמים, ריחות ואווירה שאי אפשר לשכוח",
+      ctaMenu: "לתפריט",
+      ctaNavigate: "ניווט למסעדה",
+      ctaWhatsapp: "וואטסאפ",
+    },
+    about: {
+      title: "אודותינו",
+      text: "מסעדה איטלקית בטירה עם אווירה חמה, מנות מוקפדות, פסטות, פיצות וסטייקים איכותיים.",
+    },
+    gallery: {
+      title: "מהמטבח שלנו",
+      subtitle: "טעמים שמדברים בעד עצמם",
+    },
+    quickActions: {
+      title: "פעולות מהירות",
+      menu: "צפייה בתפריט",
+      waze: "ניווט ב-Waze",
+      maps: "פתיחה ב-Google Maps",
+      contact: "יצירת קשר",
+    },
+    hours: {
+      title: "שעות פתיחה",
+      subtitle: "מחכים לכם בכל יום",
+    },
+    contact: {
+      title: "צור קשר",
+      subtitle: "נשמח לשמוע מכם",
+      phone: "טלפון",
+      whatsapp: "שלחו הודעה בוואטסאפ",
+      instagram: "עקבו באינסטגרם",
+      address: "כתובת",
+      map: "מיקום במפה",
+    },
+    menu: {
+      title: "התפריט שלנו",
+      subtitle: "מנות איטלקיות מוקפדות, מוכנות באהבה",
+      search: "חיפוש במנות...",
+      recommended: "מומלץ",
+      noResults: "לא נמצאו מנות",
+    },
+    bottomBar: {
+      menu: "תפריט",
+      navigate: "ניווט",
+      whatsapp: "וואטסאפ",
+    },
+    footer: {
+      rights: "כל הזכויות שמורות",
+    },
+  },
+  ar: {
+    langLabel: "العربية",
+    switchTo: "עברית",
+    nav: {
+      home: "الرئيسية",
+      menu: "القائمة",
+      about: "من نحن",
+      gallery: "معرض",
+      contact: "تواصل",
+    },
+    hero: {
+      headline: "كل لقمة بتحكي حكاية",
+      subtitle: "تجربة إيطالية أصيلة في قلب الطيرة — نكهات وروائح وأجواء لا تُنسى",
+      ctaMenu: "القائمة",
+      ctaNavigate: "الاتجاه للمطعم",
+      ctaWhatsapp: "واتساب",
+    },
+    about: {
+      title: "من نحن",
+      text: "مطعم إيطالي في الطيرة بأجواء دافئة، أطباق مميزة، باستا، بيتزا وستيك بجودة عالية.",
+    },
+    gallery: {
+      title: "من مطبخنا",
+      subtitle: "نكهات تتحدث عن نفسها",
+    },
+    quickActions: {
+      title: "إجراءات سريعة",
+      menu: "عرض القائمة",
+      waze: "افتح عبر Waze",
+      maps: "افتح عبر Google Maps",
+      contact: "تواصل معنا",
+    },
+    hours: {
+      title: "ساعات العمل",
+      subtitle: "بانتظاركم كل يوم",
+    },
+    contact: {
+      title: "تواصل معنا",
+      subtitle: "يسعدنا سماعكم",
+      phone: "هاتف",
+      whatsapp: "أرسل رسالة على واتساب",
+      instagram: "تابعونا على إنستغرام",
+      address: "العنوان",
+      map: "الموقع على الخريطة",
+    },
+    menu: {
+      title: "قائمتنا",
+      subtitle: "أطباق إيطالية مميزة، مُحضّرة بحب",
+      search: "ابحث في الأطباق...",
+      recommended: "مميز",
+      noResults: "لم يتم العثور على أطباق",
+    },
+    bottomBar: {
+      menu: "القائمة",
+      navigate: "الاتجاه",
+      whatsapp: "واتساب",
+    },
+    footer: {
+      rights: "جميع الحقوق محفوظة",
+    },
+  },
+};
