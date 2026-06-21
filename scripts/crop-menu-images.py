@@ -2,11 +2,18 @@
 """Crop menu images to a single main dish photo (removes collage extras and padding)."""
 from __future__ import annotations
 
+import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from PIL import Image
 
-IMAGES_DIR = Path(__file__).resolve().parents[1] / "public" / "menu-images"
+ROOT = Path(__file__).resolve().parents[1]
+IMAGES_DIR = ROOT / "public" / "menu-images"
+DOCX = Path("/Users/saebabukhet/Downloads/תפריט תמונות עבור איטליאנו -מג'ד עיראקי.docx")
+
+W_NS = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
+R_NS = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 
 
 def is_background(r: int, g: int, b: int) -> bool:
@@ -77,6 +84,97 @@ def trim_margins(im: Image.Image, pad: int = 20) -> Image.Image:
     )
 
 
+def strip_bottom_banner(im: Image.Image) -> Image.Image:
+    """Remove bottom padding and text label strips from menu photos."""
+    im = im.convert("RGB")
+    px = im.load()
+    w, h = im.size
+
+    def row_is_banner(y: int) -> bool:
+        samples = [px[x, y] for x in range(0, w, max(1, w // 24))]
+        avg_r = sum(c[0] for c in samples) / len(samples)
+        avg_g = sum(c[1] for c in samples) / len(samples)
+        avg_b = sum(c[2] for c in samples) / len(samples)
+        avg_bright = (avg_r + avg_g + avg_b) / 3
+
+        if avg_bright > 248:
+            return True
+        if avg_r > 210 and avg_g > 165 and avg_b > 115:
+            return True
+        return False
+
+    start = int(h * 0.78)
+    cut_y = h
+    found = False
+    for y in range(h - 1, start, -1):
+        if row_is_banner(y):
+            cut_y = min(cut_y, y)
+            found = True
+
+    if found and cut_y < h - 10:
+        return im.crop((0, 0, w, max(1, cut_y - 2)))
+    return im
+
+
+def restore_from_docx() -> None:
+    """Re-extract original menu images from the source docx."""
+    import sys
+
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from generate_menu import IMAGE_FILES
+
+    with zipfile.ZipFile(DOCX) as zf:
+        rels = ET.fromstring(zf.read("word/_rels/document.xml.rels"))
+        rid_to_media = {
+            rel.get("Id"): "word/" + rel.get("Target")
+            for rel in rels
+            if rel.get("Target", "").startswith("media/")
+        }
+
+        root = ET.fromstring(zf.read("word/document.xml"))
+        pages: list[list[str]] = []
+        current_text = ""
+        current_images: list[str] = []
+
+        for p in root.iter(f"{W_NS}p"):
+            texts: list[str] = []
+            imgs_in_p: list[str] = []
+            for child in p.iter():
+                tag = child.tag.split("}")[-1] if "}" in child.tag else child.tag
+                if tag == "t" and child.text:
+                    texts.append(child.text)
+                if tag == "blip":
+                    embed = child.get(f"{R_NS}embed")
+                    if embed in rid_to_media:
+                        imgs_in_p.append(rid_to_media[embed])
+
+            text = "".join(texts).strip()
+            if text or imgs_in_p:
+                if text:
+                    if current_text or current_images:
+                        pages.append((current_text, current_images))
+                    current_text = text
+                    current_images = imgs_in_p[:]
+                else:
+                    current_images.extend(imgs_in_p)
+
+        if current_text or current_images:
+            pages.append((current_text, current_images))
+
+        media_in_order = [imgs[0] for _, imgs in pages if imgs]
+
+        if len(media_in_order) != len(IMAGE_FILES):
+            raise SystemExit(
+                f"Docx has {len(media_in_order)} images, expected {len(IMAGE_FILES)}"
+            )
+
+        IMAGES_DIR.mkdir(parents=True, exist_ok=True)
+        for media_path, filename in zip(media_in_order, IMAGE_FILES):
+            (IMAGES_DIR / filename).write_bytes(zf.read(media_path))
+
+    print(f"Restored {len(IMAGE_FILES)} images from docx")
+
+
 def crop_to_main_photo(im: Image.Image, scale: int = 8) -> Image.Image:
     im = im.convert("RGB")
     w, h = im.size
@@ -99,31 +197,39 @@ def crop_to_main_photo(im: Image.Image, scale: int = 8) -> Image.Image:
     components = [c for c in find_components(mask, sw, sh) if c[0] >= min_area]
 
     if not components:
-        return trim_margins(im)
+        return strip_bottom_banner(trim_margins(im))
 
-    largest = components[0]
+    def bbox_area(comp: tuple[int, int, int, int, int]) -> int:
+        _, minx, miny, maxx, maxy = comp
+        return (maxx - minx + 1) * (maxy - miny + 1)
+
+    largest = max(components, key=bbox_area)
     content_ratio = largest[0] / content_pixels
 
-    # One connected scene (single dish or platter): just trim empty margins.
+    # One connected scene (single dish or platter): trim empty margins.
     if len(components) == 1 or content_ratio > 0.72:
-        return trim_margins(im)
+        return strip_bottom_banner(trim_margins(im))
 
     _, minx, miny, maxx, maxy = largest
-    pad = 12
+    pad = 4
     left = max(0, minx - pad) * scale
     top = max(0, miny - pad) * scale
     right = min(sw - 1, maxx + pad) * scale + scale
     bottom = min(sh - 1, maxy + pad) * scale + scale
-    return im.crop((left, top, right, bottom))
+    return strip_bottom_banner(im.crop((left, top, right, bottom)))
 
 
 def main() -> None:
+    import sys
+
+    if "--no-restore" not in sys.argv:
+        restore_from_docx()
     files = sorted(
         p for p in IMAGES_DIR.iterdir() if p.suffix.lower() in {".png", ".jpg", ".jpeg"}
     )
     for path in files:
         cropped = crop_to_main_photo(Image.open(path))
-        cropped.save(path, optimize=True)
+        cropped.save(path)
         print(f"{path.name}: {cropped.size[0]}x{cropped.size[1]}")
 
     print(f"Processed {len(files)} images")
