@@ -7,7 +7,6 @@ import BottomActionBar from "../components/BottomActionBar";
 import MenuCategoryTabs from "../components/MenuCategoryTabs";
 import MenuItemCard from "../components/MenuItemCard";
 import SectionHeading from "../components/SectionHeading";
-import AnimateIn from "../components/AnimateIn";
 
 function useIsMobile(breakpoint = 768) {
   const [isMobile, setIsMobile] = useState(
@@ -71,10 +70,10 @@ export default function Menu() {
   const selectCategory = (id) => {
     setActiveCategory(id);
     if (isMobile && !search) {
-      document.getElementById("menu-items")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.getElementById("menu-items")?.scrollIntoView({ block: "start" });
       return;
     }
-    document.getElementById(`cat-${id}`)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(`cat-${id}`)?.scrollIntoView({ block: "start" });
   };
 
   const activeCategoryName =
@@ -89,9 +88,10 @@ export default function Menu() {
             title={t.menu.title}
             subtitle={t.menu.subtitle}
             className="pt-4 md:pt-6"
+            animated={false}
           />
 
-          <AnimateIn animation="fade-up" delay={120} className="mb-4 md:mb-6">
+          <div className="mb-4 md:mb-6">
             <input
               type="search"
               value={search}
@@ -99,7 +99,7 @@ export default function Menu() {
               placeholder={t.menu.search}
               className="w-full rounded-full border border-italiano-cream/20 bg-italiano-green-card px-5 py-2.5 text-italiano-cream placeholder:text-italiano-cream/40 focus:border-italiano-gold focus:outline-none md:px-6 md:py-3"
             />
-          </AnimateIn>
+          </div>
         </div>
 
         {!search && (
@@ -110,8 +110,8 @@ export default function Menu() {
           {search ? (
             <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
               {filtered.length > 0 ? (
-                filtered.map((item, i) => (
-                  <MenuItemCard key={item.id} item={item} delay={i * 60} />
+                filtered.map((item) => (
+                  <MenuItemCard key={item.id} item={item} />
                 ))
               ) : (
                 <p className="col-span-full py-12 text-center text-italiano-cream/60">
@@ -139,8 +139,8 @@ export default function Menu() {
                       {cat.name[lang]}
                     </h2>
                     <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
-                      {items.map((item, i) => (
-                        <MenuItemCard key={item.id} item={item} delay={i * 60} />
+                      {items.map((item) => (
+                        <MenuItemCard key={item.id} item={item} />
                       ))}
                     </div>
                   </section>

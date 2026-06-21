@@ -9,7 +9,6 @@ export default function MenuCategoryTabs({ activeId, onSelect }) {
 
   useEffect(() => {
     activeRef.current?.scrollIntoView({
-      behavior: "smooth",
       block: "nearest",
       inline: "center",
     });

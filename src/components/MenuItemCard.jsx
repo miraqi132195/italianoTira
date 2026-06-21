@@ -1,35 +1,40 @@
 import { useLanguage } from "../context/LanguageContext";
-import AnimateIn from "./AnimateIn";
 
-export default function MenuItemCard({ item, delay = 0 }) {
+function formatPrice(item) {
+  if (item.priceLabel) return item.priceLabel;
+  if (item.price != null) return String(item.price);
+  return null;
+}
+
+export default function MenuItemCard({ item }) {
   const { lang } = useLanguage();
+  const priceText = formatPrice(item);
 
   return (
-    <AnimateIn
-      as="article"
-      animation="fade-up"
-      delay={delay}
-      className="group overflow-hidden rounded-2xl bg-italiano-cream shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl"
-    >
+    <article className="overflow-hidden rounded-2xl bg-italiano-cream shadow-lg">
       <div className="relative aspect-[16/10] overflow-hidden sm:aspect-[4/3]">
         <img
           src={item.image}
           alt={item.name[lang]}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover object-center"
         />
+        {priceText ? (
+          <span className="absolute bottom-3 end-3 rounded-xl bg-italiano-green px-3.5 py-1.5 font-display text-xl font-bold tracking-wide text-italiano-cream shadow-lg ring-2 ring-italiano-gold/40 sm:bottom-4 sm:end-4 sm:px-4 sm:py-2 sm:text-2xl">
+            ₪{priceText}
+          </span>
+        ) : null}
       </div>
       <div className="p-4 sm:p-5">
-        <div className="mb-1.5 flex items-start justify-between gap-3 sm:mb-2">
-          <h3 className="text-base font-semibold text-italiano-green sm:text-lg">{item.name[lang]}</h3>
-          <span className="shrink-0 font-display text-lg text-italiano-gold sm:text-xl">
-            ₪{item.price}
-          </span>
-        </div>
-        <p className="text-sm leading-relaxed text-italiano-green/70">
-          {item.description[lang]}
-        </p>
+        <h3 className="text-base font-semibold leading-snug text-italiano-green sm:text-lg">
+          {item.name[lang]}
+        </h3>
+        {item.description[lang] ? (
+          <p className="mt-1.5 text-sm leading-relaxed text-italiano-green/70 sm:mt-2">
+            {item.description[lang]}
+          </p>
+        ) : null}
       </div>
-    </AnimateIn>
+    </article>
   );
 }
